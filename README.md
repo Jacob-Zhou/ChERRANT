@@ -1,15 +1,17 @@
+# 声明
+
+本仓库的原始来源为 [MuCGEC](https://github.com/HillZhang1999/MuCGEC/tree/main/scorers/ChERRANT)。
+为了方便使用，本仓库将 ChERRANT 从 MuCGEC 中分离出来。
+
 # 使用说明
 
-我们借鉴了英文上主流的GEC评估工具[ERRANT](https://github.com/chrisjbryant/errant)，搭建了中文GEC评估工具ChERRANT（Chinese ERRANT）。ChERRANT的主要功能是通过对比预测编辑和标准编辑，计算预测结果的精确度、召回度、F值指标，从而评估语法纠错模型的性能。
+[章岳](https://hillzhang1999.github.io/) 等人，借鉴了英文上主流的GEC评估工具[ERRANT](https://github.com/chrisjbryant/errant)，搭建了中文GEC评估工具ChERRANT（Chinese ERRANT）。
+ChERRANT的主要功能是通过对比预测编辑和标准编辑，计算预测结果的精确度、召回度、F值指标，从而评估语法纠错模型的性能。
 
-## 环境
-
-`requirements.txt`包含了实验所需的主要环境，具体环境搭建流程如下所示：
+## 安装
 
 ```
-conda create -n cherrant python==3.8
-conda activate cherrant
-pip install -r requirements.txt
+pip install cherrant
 ```
 
 ## 使用方式
@@ -61,7 +63,7 @@ paste $INPUT_FILE $OUTPUT_FILE | awk '{print NR"\t"$p}' > $HYP_PARA_FILE
 ```
 HYP_M2_FILE=./samples/demo.hyp.m2.char
 
-python parallel_to_m2.py -f $HYP_PARA_FILE -o $HYP_M2_FILE -g char
+parallel-to-m2 -f $HYP_PARA_FILE -o $HYP_M2_FILE -g char
 ```
 
 默认抽取的是字级别编辑。
@@ -69,7 +71,7 @@ python parallel_to_m2.py -f $HYP_PARA_FILE -o $HYP_M2_FILE -g char
 通过将`-g`参数设为`word`，则可以抽取词级别编辑。虽然词级别编辑标注了更多的错误类型信息，但可能会受到分词错误影响，因此仅供参考。更多设置请参考命令行帮助文件：
 
 ```
-python parallel_to_m2.py --help
+parallel-to-m2 --help
 ```
 
 ### 计算指标
@@ -78,7 +80,7 @@ python parallel_to_m2.py --help
 
 ```
 REF_M2_FILE=./samples/demo.ref.m2.char
-python compare_m2_for_evaluation.py -hyp $HYP_M2_FILE -ref $REF_M2_FILE
+compare-m2 -hyp $HYP_M2_FILE -ref $REF_M2_FILE
 ```
 
 字级别的F0.5指标是MuCGEC数据集采用的官方评测指标，评价结果如下所示：
@@ -93,7 +95,7 @@ TP      FP      FN      Prec    Rec     F0.5
 该程序也可支持更细粒度的信息展示，如展示检测指标和不同类型错误的纠正指标，请参考命令行帮助信息使用。
 
 ```
-python compare_m2_for_evaluation.py --help
+compare-m2 --help
 ```
 
 ## 引用

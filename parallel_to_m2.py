@@ -14,7 +14,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 annotator, sentence_to_tokenized = None, None
 cc = OpenCC("t2s")
 
-def annotate(line):
+def annotate(line, args):
     """
     :param line:
     :return:
@@ -44,7 +44,7 @@ def annotate(line):
             raise Exception
     return output_str
 
-def main(args):
+def _main(args):
     tokenizer = Tokenizer(args.granularity, args.device, args.segmented)
     global annotator, sentence_to_tokenized
     annotator = Annotator.create_default(args.granularity, args.multi_cheapest_strategy)
@@ -87,19 +87,11 @@ def main(args):
     
         # 单进程模式
         for line in tqdm(lines):
-            ret = annotate(line)
+            ret = annotate(line, args)
             f.write(ret)
             f.write("\n") 
 
-        # 多进程模式：仅在Linux环境下测试，建议在linux服务器上使用
-        # with Pool(args.worker_num) as pool:
-        #     for ret in pool.imap(annotate, tqdm(lines), chunksize=8):
-        #         if ret:
-        #             f.write(ret)
-        #             f.write("\n")
-
-
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Choose input file to annotate")
     parser.add_argument("-f", "--file", type=str, required=True, help="Input parallel file")
     parser.add_argument("-o", "--output", type=str, help="Output file", required=True)
@@ -112,4 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--segmented", help="Whether tokens have been segmented", action="store_true")  # 支持提前token化，用空格隔开
     parser.add_argument("--no_simplified", help="Whether simplifying chinese", action="store_true")  # 将所有corrections转换为简体中文
     args = parser.parse_args()
-    main(args)
+    _main(args)
+
+if __name__ == "__main__":
+    main()

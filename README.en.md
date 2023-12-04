@@ -1,15 +1,12 @@
 # Instruction
 
-We have built a Chinese GEC evaluation tool, ChERRANT (Chinese ERRANT), following the mainstream English GEC evaluation tool [ERRANT](https://github.com/chrisjbryant/errant). The main function of ChERRANT is to calculate the Precision, Recall and F-value of prediction results by comparing hypothesis edits and golden edits, thereby evaluating the performance of GEC model.
+Yue Zhang have built a Chinese GEC evaluation tool, ChERRANT (Chinese ERRANT), following the mainstream English GEC evaluation tool [ERRANT](https://github.com/chrisjbryant/errant). 
+The main function of ChERRANT is to calculate the Precision, Recall and F-value of prediction results by comparing hypothesis edits and golden edits, thereby evaluating the performance of GEC model.
 
-## Environment
-
-`requirements.txt` contains the main environment required for the experiment. The specific environment construction process is as follows:
+## Installation
 
 ```
-conda create -n cherrant python==3.8
-conda activate cherrant
-pip install -r requirements.txt
+pip install cherrant
 ```
 
 ## Usage
@@ -61,7 +58,7 @@ Then, extracting the edits with the following command:
 ```
 HYP_M2_FILE=./samples/demo.hyp.m2.char
 
-python parallel_to_m2.py -f $HYP_PARA_FILE -o $HYP_M2_FILE -g char
+parallel-to-m2 -f $HYP_PARA_FILE -o $HYP_M2_FILE -g char
 ```
 
 By default, char-level edits are extracted.
@@ -71,7 +68,7 @@ By setting the `-g' parameter to 'word', you can extract word-level edits.
 For more functions, please refer to the command line help file:
 
 ```
-python parallel_to_m2.py --help
+parallel-to-m2 --help
 ```
 
 ### Calculate Evaluation
@@ -80,7 +77,7 @@ Use the following script to compare the hypothesis edit file with the reference 
 
 ```
 REF_M2_FILE=./samples/demo.ref.m2.char
-python compare_m2_for_evaluation.py -hyp $HYP_M2_FILE -ref $REF_M2_FILE
+compare-m2 -hyp $HYP_M2_FILE -ref $REF_M2_FILE
 ```
 
 The F0.5 value at the char-level is the official evaluation metric adopted by the MuCGEC dataset, and the evaluation results are as follows:
@@ -98,7 +95,7 @@ This program can also support more fine-grained information displays, such as di
 For more functions, please refer to the command line help file:
 
 ```
-python compare_m2_for_evaluation.py --help
+compare-m2 --help
 ```
 
 ## Citation

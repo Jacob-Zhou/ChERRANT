@@ -1,4 +1,3 @@
-from ltp import LTP
 from typing import List
 from pypinyin import pinyin, Style, lazy_pinyin
 import torch
@@ -17,13 +16,15 @@ class Tokenizer:
         构造函数
         :param mode: 分词模式，可选级别：字级别（char）、词级别（word）
         """
-        self.ltp = None 
+        self.ltp = None
         if granularity == "word":
+            from ltp import LTP
             self.ltp = LTP(device=torch.device(device) if torch.cuda.is_available() else torch.device("cpu"))
             self.ltp.add_words(words=["[缺失成分]"], max_window=6)
         self.segmented = segmented
         self.granularity = granularity
         if self.granularity == "word":
+            assert self.ltp is not None
             self.tokenizer = self.split_word
         elif self.granularity == "char":
             self.tokenizer = self.split_char
