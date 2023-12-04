@@ -1,7 +1,7 @@
 from typing import List, Tuple
-from modules.alignment import read_cilin, read_confusion, Alignment
-from modules.merger import Merger
-from modules.classifier import Classifier
+from cherrant.modules.alignment import read_cilin, read_confusion, Alignment
+from cherrant.modules.merger import Merger
+from cherrant.modules.classifier import Classifier
 
 class Annotator:
     def __init__(self,

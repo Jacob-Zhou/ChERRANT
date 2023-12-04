@@ -1,6 +1,6 @@
 import argparse
 from collections import Counter
-from modules.classifier import check_spell_error
+from cherrant.modules.classifier import check_spell_error
 from tqdm import tqdm
 
 def parse_m2(filename):
@@ -57,7 +57,7 @@ def validate(edits):
     return final_final_edits
 
 
-def main(args):
+def _main(args):
     total_edits = []
     for f in args.result_path:
         sources, edits = parse_m2(f)
@@ -94,7 +94,7 @@ def main(args):
                 out = src + "\n" + "A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0" + "\n\n"
             o.write(out)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path',
                         help='Path to the result file.', nargs='+',
@@ -107,4 +107,7 @@ if __name__ == "__main__":
                         type=int,
                         default=2)
     args = parser.parse_args()
-    main(args)
+    _main(args)
+
+if __name__ == "__main__":
+    main()

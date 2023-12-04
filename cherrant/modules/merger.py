@@ -1,8 +1,8 @@
 from itertools import groupby
 from string import punctuation
 from typing import List
-from modules.tokenizer import Tokenizer
-from modules.alignment import Alignment, read_cilin, read_confusion
+from cherrant.modules.tokenizer import Tokenizer
+from cherrant.modules.alignment import Alignment, read_cilin, read_confusion
 import Levenshtein
 
 class Merger:

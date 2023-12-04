@@ -33,8 +33,10 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'parallel-to-m2=parallel_to_m2:main',
-            'compare-m2=compare_m2_for_evaluation:main',
+            'parallel-to-m2=cherrant.parallel_to_m2:main',
+            'compare-m2=cherrant.compare_m2_for_evaluation:main',
+            'rule-ensemble=cherrant.rule_ensemble:main',
+            'm2-convertor=cherrant.m2convertor:main',
         ]
     },
     python_requires='>=3.7',

@@ -1,6 +1,6 @@
 import numpy as np
 from typing import List, Tuple, Dict
-from modules.tokenizer import Tokenizer
+from cherrant.modules.tokenizer import Tokenizer
 import os
 from string import punctuation
 

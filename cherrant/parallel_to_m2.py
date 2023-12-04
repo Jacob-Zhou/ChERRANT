@@ -1,6 +1,6 @@
 import os
-from modules.annotator import Annotator
-from modules.tokenizer import Tokenizer
+from cherrant.modules.annotator import Annotator
+from cherrant.modules.tokenizer import Tokenizer
 import argparse
 from collections import Counter
 from tqdm import tqdm

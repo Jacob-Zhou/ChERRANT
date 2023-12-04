@@ -67,7 +67,7 @@ class M2Processor():
             return [self.src_sent]
 
     
-def read_file():
+def read_file(args):
     src_sent = None
     edit_lines = []
     with open(args.f, "r", encoding="utf8") as fr:
@@ -84,9 +84,13 @@ def read_file():
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", help="m2 file")
+    parser.add_argument("-o", help="output file")
+    args = parser.parse_args()
     counter = 0
     fw_trg = open(args.o, "w", encoding="utf8")
-    for src_sent, edit_lines in read_file():
+    for src_sent, edit_lines in read_file(args):
         counter += 1
         m2_item = M2Processor(src_sent, edit_lines)
         trg_sents = m2_item.get_para()
@@ -96,8 +100,4 @@ def main():
  
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-f", help="m2 file")
-    parser.add_argument("-o", help="output file")
-    args = parser.parse_args()
     main()
